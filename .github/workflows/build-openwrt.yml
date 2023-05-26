@@ -75,7 +75,7 @@ jobs:
       run: cd openwrt && ./scripts/feeds install -a
       
     - name: Get Lean Luci
-      run: cd openwrt && git clone https://github.com/wingarcher/lean_luci package/feeds/luci
+      run: cd openwrt && git clone https://github.com/wingarcher/lean_luci package/feeds/luci/lean
       
     - name: 2_Update feeds
       run: cd openwrt && ./scripts/feeds update -a
