@@ -68,19 +68,36 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Update feeds
+    - name: Openwrt_Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: Install feeds
+    - name: Openwrt_Install feeds
       run: cd openwrt && ./scripts/feeds install -a
       
-    - name: Get Lean Luci
-      run: cd openwrt && git clone https://github.com/wingarcher/lean_luci package/feeds/luci/lean
+    - name: Clone lede soure code
+      working-directory: /workdir
+      run: |
+        git clone https://github.com/coolsnowwolf/lede
+		    ln -sf /workdir/lede $GITHUB_WORKSPACE/lede
+
+    - name: lede_Update feeds
+      run: cd lede && ./scripts/feeds update -a
+
+    - name: lede_Install feeds
+      run: cd lede && ./scripts/feeds install -a
       
-    - name: 2_Update feeds
+      - name: Copy luci
+      run: |
+      cp -rp lede/feeds/luci/applications/luci-app-accesscontrol openwrt/feeds/luci/applications/luci-app-accesscontrol
+      cp -rp lede/feeds/luci/applications/luci-app-diskman openwrt/feeds/luci/applications/luci-app-diskman
+      cp -rp lede/feeds/luci/applications/luci-app-filetransfer openwrt/feeds/luci/applications/luci-app-filetransfer
+      cp -rp lede/feeds/luci/libs/luci-lib-fs openwrt/feeds/luci/libs/luci-lib-fs
+      cp -rp lede/feeds/luci/applications/luci-app-autoreboot openwrt/feeds/luci/applications/luci-app-autoreboot
+      
+      - name: Openwrt_2_Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: 2_Install feeds
+    - name: Openwrt_2_Install feeds
       run: cd openwrt && ./scripts/feeds install -a
       
     - name: Load custom configuration
