@@ -68,9 +68,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Clone source adguardhome
-      run: cd openwrt/package/feeds/luci && git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
-
     - name: Openwrt_Install feeds
       run: cd openwrt && ./scripts/feeds install -a
       
@@ -95,7 +92,7 @@ jobs:
         cp -rp lede/feeds/luci/applications/luci-app-autoreboot openwrt/feeds/luci/applications/luci-app-autoreboot
 
     - name: Openwrt_2_add_adguardhome
-      run: cd openwrt && git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
+      run: cd openwrt/package/feeds/luci && git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
 
     - name: Openwrt_2_Update feeds
       run: cd openwrt && ./scripts/feeds update -a
