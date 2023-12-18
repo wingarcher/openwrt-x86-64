@@ -94,8 +94,8 @@ jobs:
         cp -rp lede/feeds/luci/libs/luci-lib-fs openwrt/feeds/luci/libs/luci-lib-fs
         cp -rp lede/feeds/luci/applications/luci-app-autoreboot openwrt/feeds/luci/applications/luci-app-autoreboot
 
-    - name: Openwrt_2_Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+    - name: Openwrt_2_add_adguardhome
+      run: cd openwrt && git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
 
     - name: Openwrt_2_Update feeds
       run: cd openwrt && ./scripts/feeds update -a
