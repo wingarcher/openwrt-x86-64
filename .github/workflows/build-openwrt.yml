@@ -53,16 +53,16 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        sudo rm -rf /workdir
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        sudo rm -rf /mnt/workdir
+        sudo mkdir -p /mnt/workdir
+        sudo chown $USER:$GROUPS /mnt/workdir
         
     - name: Clone source code
-      working-directory: /workdir
+      working-directory: /mnt/workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Load custom feeds
       run: |
@@ -78,10 +78,10 @@ jobs:
       run: cd openwrt && ./scripts/feeds install -a
       
     - name: Clone lede soure code
-      working-directory: /workdir
+      working-directory: /mnt/workdir
       run: |
         git clone https://github.com/coolsnowwolf/lede
-        ln -sf /workdir/lede $GITHUB_WORKSPACE/lede
+        ln -sf /mnt/workdir/lede $GITHUB_WORKSPACE/lede
 
     - name: lede_Update feeds
       run: cd lede && ./scripts/feeds update -a
